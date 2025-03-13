@@ -1353,16 +1353,16 @@ def register(bl_info):
     updater.private_token = None  # "tokenstring"
 
     # Choose your own username, must match website (not needed for GitLab).
-    updater.user = "CGcookie"
+    updater.user = "redmoon0"
 
     # Choose your own repository, must match git name for GitHUb and Bitbucket,
     # for GitLab use project ID (numbers only).
-    updater.repo = "blender-addon-updater"
+    updater.repo = "Red-Library"
 
     # updater.addon = # define at top of module, MUST be done first
 
     # Website for manual addon download, optional but recommended to set.
-    updater.website = "https://github.com/CGcookie/blender-addon-updater"
+    updater.website = "https://github.com/redmoon0/Red-Library"
 
     # Addon subfolder path.
     # "sample/path/to/addon"
