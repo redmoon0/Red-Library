@@ -1,5 +1,5 @@
 bl_info = {
-	"name": "Red Library",
+	"name": "RedLibrary",
 	"description": "Red Assets Library",
 	"author": "Redmoon",
 	"version": (1, 0, 0),
