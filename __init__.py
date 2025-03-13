@@ -2,7 +2,7 @@ bl_info = {
 	"name": "Red Library",
 	"description": "Red Assets Library",
 	"author": "Redmoon",
-	"version": (1, 0, 0),
+	"version": (1, 0, 1),
 	"blender": (4, 0, 0),
 	"location": "View 3D > Tool Shelf > Demo Updater",
 	"warning": "",
@@ -153,6 +153,11 @@ class MaterialPreviewPanel(bpy.types.Panel):
         layout = self.layout
         materials = load_materials_from_external_blend()
 
+        addon_updater_ops.check_for_update_background()
+        if addon_updater_ops.updater.update_ready:
+            layout.label(text="Custom update message", icon="INFO")
+        addon_updater_ops.update_notice_box_ui(self, context)
+
         for material in materials:
             box = layout.row()
             box.label(text=material.name)
@@ -165,23 +170,19 @@ class MaterialPreviewPanel(bpy.types.Panel):
             row.operator("object.apply_material", text="Preview").material_name = material.name
             row.operator("object.import_and_apply_material", text="Apply").material_name = material.name
 
-class DemoUpdaterPanel(bpy.types.Panel):
-    bl_label = "Red Library Updater"
-    bl_idname = "DEMO_UPDATER_PT_panel"
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_category = 'Red Library 2'
+# class DemoUpdaterPanel(bpy.types.Panel):
+#     bl_label = "Red Library Updater"
+#     bl_idname = "DEMO_UPDATER_PT_panel"
+#     bl_space_type = 'VIEW_3D'
+#     bl_region_type = 'UI'
+#     bl_category = 'Red Library 2'
 
-    def draw(self, context):
-        layout = self.layout
-        addon_updater_ops.check_for_update_background()
-        if addon_updater_ops.updater.update_ready:
-            layout.label(text="Custom update message", icon="INFO")
-        addon_updater_ops.update_notice_box_ui(self, context)
+#     def draw(self, context):
+#         layout = self.layout
+
 
 classes = (
     RedLibraryPreferences,
-    DemoUpdaterPanel,
     ApplyMaterialOperator,
     ImportAndApplyMaterialOperator,
     MaterialPreviewPanel
