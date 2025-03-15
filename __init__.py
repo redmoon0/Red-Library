@@ -22,6 +22,7 @@ materials_cache = []
 # Load materials from the specified external blend file
 def load_materials_from_external_blend():
     global materials_cache
+    materials_cache = []
     if materials_cache:
         return materials_cache
 
