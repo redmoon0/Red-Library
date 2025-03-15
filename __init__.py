@@ -84,27 +84,6 @@ class RedLibraryPreferences(bpy.types.AddonPreferences):
         addon_updater_ops.update_settings_ui(self, context)
         layout.prop(self, "external_blender_file", text="Path to Blender File")
 
-class ApplyMaterialOperator(bpy.types.Operator):
-    bl_idname = "object.apply_material"
-    bl_label = "Apply Material"
-    material_name: bpy.props.StringProperty()
-
-    def execute(self, context):
-        active_obj = context.view_layer.objects.active
-        if active_obj and active_obj.type == 'MESH':
-            material = bpy.data.materials.get(self.material_name)
-            if material:
-                if len(active_obj.data.materials) == 0:
-                    active_obj.data.materials.append(material)
-                else:
-                    active_obj.data.materials[0] = material
-                self.report({'INFO'}, f"Material '{material.name}' applied for preview.")
-            else:
-                self.report({'ERROR'}, f"Material '{self.material_name}' not found.")
-        else:
-            self.report({'ERROR'}, "No active mesh object.")
-        return {'FINISHED'}
-
 class ImportAndApplyMaterialOperator(bpy.types.Operator):
     bl_idname = "object.import_and_apply_material"
     bl_label = "Import and Apply Material"
@@ -167,7 +146,6 @@ class MaterialPreviewPanel(bpy.types.Panel):
             else:
                 preview_box.label(text="No Preview Available")
             row = preview_box.row()
-            row.operator("object.apply_material", text="Preview").material_name = material.name
             row.operator("object.import_and_apply_material", text="Apply").material_name = material.name
 
 # class DemoUpdaterPanel(bpy.types.Panel):
@@ -183,7 +161,6 @@ class MaterialPreviewPanel(bpy.types.Panel):
 
 classes = (
     RedLibraryPreferences,
-    ApplyMaterialOperator,
     ImportAndApplyMaterialOperator,
     MaterialPreviewPanel
 )
